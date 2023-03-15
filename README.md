@@ -1,0 +1,1 @@
+Ho avuto problemi nel fare il rerender dopo aver impostato il valore della select, inoltre dummy json non funziona bene.
