@@ -1,0 +1,58 @@
+.ModalCart {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 2;
+}
+
+.ModalCart__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  border-radius: 12px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+  background-color: white;
+}
+
+
+.CartElement_List{
+  display: flex; 
+  flex-direction: column;
+ 
+}
+
+
+
+.closeCart_button{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.closeCart_button button{
+  width: 25px;
+  height: 25px;
+}
+
+
+
+
+.totalCart{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+
+.ClearCart{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}

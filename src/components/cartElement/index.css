@@ -1,0 +1,45 @@
+.CartElement{
+    height:60px;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding:5px
+}
+
+.CartElement__image--image{
+  width: 50px;
+  height: 60px;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  filter: grayscale(0.3) saturate(1) contrast(1);
+  transition: all 0.35s;
+  object-fit: cover;
+}
+
+.CartElement__text{
+    font-size: 0.8rem;;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 250px;
+
+    gap:6px;
+}
+.CartElement__text--title,
+.CartElement__text--desc,
+.CartElement__text--cat{
+    margin:0;
+    padding:0}
+
+.CartElement__price{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .Remove_Item{
+   
+} */

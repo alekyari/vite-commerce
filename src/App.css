@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 10px;
   background-color: rgb(250, 226, 215);
+  box-sizing: border-box;
 }
 
 

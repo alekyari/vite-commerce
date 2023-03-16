@@ -2,22 +2,27 @@ import { useState , useEffect } from "react";
 import "./index.css";
 import { GET } from "../../utils/http";
 
-const Navbar = ({appSetSelectValue}) => {
-  const [selectValue, setSelectValue] = useState("smartphones");
+const Navbar = ({appSetSelectValue , cartListLength, setModalCartVisible }) => {
+  const [selectValue, setSelectValue] = useState("");
    const [optionFetch, setOptionFetch] = useState([]);
  
 
-  const onHandleInput = (e) => {setSelectValue(() => e.target.value);appSetSelectValue(selectValue)};
+  const onHandleInput = (e) => setSelectValue(() => e.target.value);
+    
 
-  
+    const onHandleSubmit = (e) => {e.preventDefault();
+      appSetSelectValue(() => selectValue)};
    
   
   useEffect(() => {
-    GET(`/products/categories`).then((data) => setOptionFetch(() => data));
+    GET(`/products/categories/`).then((data) => setOptionFetch(() => data));
   }, []);
 
- 
+  const onHandleOpenCart = () =>
+  setModalCartVisible(true);
 
+  const onHandleClearCart = () =>
+  localStorage.removeItem("cartList");
 
   return (
     <div className="Navbar">
@@ -27,20 +32,21 @@ const Navbar = ({appSetSelectValue}) => {
         <li>About us</li>
       </ul>
 <div className="select_navabar">
+  <form onSubmit={onHandleSubmit}>
      <label>
         Please select a category:
         </label>
        <select value={selectValue} onChange={onHandleInput} name="selectcategory" >
       { optionFetch.map((optionFetch,i) => (
         <option value={optionFetch} key={i}>{optionFetch}</option>))}
-          {/* <option  value="smarthpones">smarthpones</option>
-          <option  value="laptops">laptops</option>
-          <option  value="fragrances">fragrances</option>
-          <option  value="skincare">skincare</option>
-          <option  value="groceries">groceries</option> */}
-        </select>
-        
+      </select>
+        <input type="submit" value="Search" />
+        </form>
         </div>
+        <div className="Navbar__cart">
+        <p  onClick={onHandleOpenCart} >{cartListLength} 🛒</p>
+        <button onclick={onHandleClearCart}>Clear Cart</button>
+      </div>
     </div>
   );
 };

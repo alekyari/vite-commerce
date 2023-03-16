@@ -6,21 +6,21 @@ import "./index.css";
 
 const MiniCardList = ({ endpoint , appSelectValue}) => {
   const [miniCards, setMiniCards] = useState([]);
-  const [category, setCategory] = useState(appSelectValue);
+  
   
    
   
   useEffect(() => {
-    GET(`${endpoint}${category}`).then((data) => setMiniCards(() => data.products));
-  }, []);
+    GET(`${endpoint}${appSelectValue}`).then((data) => setMiniCards(() => data.products));
+  }, [appSelectValue]);
 
   return (
-    <div className="miniCardList">
+    <div    className="miniCardList">
 
         {miniCards.length ? (miniCards.map((card) => (
           <MiniCard imgSrc={card.thumbnail} imgAlt={card.title} key={card.id} />
         ))): (
-          <SpinnerLoading /> )}
+          <SpinnerLoading />  )}
     </div>
   );
 };
