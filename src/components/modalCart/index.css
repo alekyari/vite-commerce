@@ -50,9 +50,18 @@
   justify-content: flex-end;
 }
 
-
+.ClearSingleItem,
 .ClearCart{
+  margin:4px
+}
+
+
+
+
+
+.clearbuttons{
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center ;
+  justify-content:space-between;
+  margin:4px
 }

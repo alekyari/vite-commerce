@@ -4,8 +4,15 @@
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
-    padding:5px
+    padding:13px;
+    border-radius: 3px;
 }
+
+
+.selected{
+background-color: tomato;
+}
+
 
 .CartElement__image--image{
   width: 50px;

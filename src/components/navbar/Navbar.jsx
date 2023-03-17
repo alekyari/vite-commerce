@@ -45,7 +45,7 @@ const Navbar = ({appSetSelectValue , cartListLength, setModalCartVisible }) => {
         </div>
         <div className="Navbar__cart">
         <p  onClick={onHandleOpenCart} >{cartListLength} 🛒</p>
-        <button onclick={onHandleClearCart}>Clear Cart</button>
+        <button onClick={onHandleClearCart}>Clear Cart</button>
       </div>
     </div>
   );

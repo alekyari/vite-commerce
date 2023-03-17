@@ -11,7 +11,7 @@ import ModalCart from "./components/modalCart";
 
 function App() {
   const [appSelectValue, appSetSelectValue] = useState("smartphones");
-  const [cartList, setCartList] = useState([]);
+  const [cartList, setCartList] = useState(JSON.parse(localStorage.getItem("cartList"))||[]);
   const [modalContext, setModalContext] = useState({
     productData: {},
     isVisibile: false,
@@ -23,9 +23,9 @@ function App() {
     JSON.parse(localStorage.getItem("cartList") || "[]").length;
 
  
-    const localStorageCartList =
-    window !== "undefined" &&
-    JSON.parse(localStorage.getItem("cartList") || "[]");
+    // const localStorageCartList =
+    // window !== "undefined" &&
+    // JSON.parse(localStorage.getItem("cartList") || "[]");
   
  
 
@@ -43,11 +43,12 @@ function App() {
           productData={modalContext.productData}
           setCartList={setCartList}
           setModalContext={setModalContext}
+      
         />
       )}
       {modalCartVisibile && (
         <ModalCart
-          productData={localStorageCartList}
+          cartList={cartList}
           setCartList={setCartList}
           setModalCartVisible={setModalCartVisible}
         />

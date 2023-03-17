@@ -17,20 +17,36 @@ const ProductDetail = ({ productData, setModalContext, setCartList }) => {
       isVisibile: false,
     }));
 
+
   const onHandleAddCart = () => {
     const localStorageCartItems =
       JSON.parse(localStorage.getItem("cartList")) || [];
 
-    setCartList((prev) => [...prev, productData]);
-    localStorage.setItem(
-      "cartList",
-      JSON.stringify([...localStorageCartItems, productData])
+    const isProductDataInsideLocalStorage = !localStorageCartItems.find(
+      (product) => product.id === productData.id
     );
-  };
 
-  const onHandleImageClick = (imgUrl) => {
-    setGalleryVisible(true);
-    setSelectedPhoto(() => imgUrl);
+    setCartList((prev) =>
+      !!prev.find((product) => product.id === productData.id)
+        ? [...prev]
+        : [...prev, productData]
+    );
+
+    if (isProductDataInsideLocalStorage) {
+      localStorage.setItem(
+        "cartList",
+        JSON.stringify([...localStorageCartItems, productData])
+      );
+
+      alert(`${productData.title} added to the cart`);
+    } else {
+      alert(`${productData.title} s already in your cart, pleasepick another item`);
+    }
+
+    setModalContext((prev) => ({
+      ...prev,
+      isVisibile: false,
+    }));
   };
 
   return (

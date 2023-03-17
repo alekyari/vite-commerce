@@ -1,34 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
 import CartElement from "../cartElement";
 import SpinnerLoading from "../spinnerLoading/SpinnerLoading";
 
 
 
-const ModalCart = ({ productData, setModalCartVisible, setCartList }) => {
+const ModalCart = ({ cartList, setModalCartVisible, setCartList }) => {
+  const [selected, setSelected]= useState(false);
+  const [cartElementId, setCartElementId]= useState("");
 
   
-  const onHandleClearCart = () =>
-  localStorage.removeItem("cartList");
+  const onHandleClick = () => {
+    
+    const filteredCartList = cartList.filter(
+      (product) => product.id !== cartElementId
+    );
+
+    setCartList(() => filteredCartList);
+
+    localStorage.setItem("cartList", JSON.stringify(filteredCartList));
+    setSelected(false)
+  };
+
+
+  const onHandleClearCart = () =>{
+  localStorage.removeItem("cartList"); 
+  setCartList([])
+}
+
 
   const onHandleClose = () =>
   setModalCartVisible(false);
 
-  // const onHandleAddCart = () => {
-  //   const localStorageCartItems =
-  //     JSON.parse(localStorage.getItem("cartList")) || [];
 
-  //   setCartList((prev) => [...prev, productData]);
-  //   localStorage.setItem(
-  //     "cartList",
-  //     JSON.stringify([...localStorageCartItems, productData])
-  //   );
-  // };
-
-  // const onHandleImageClick = (imgUrl) => {
-  //   setGalleryVisible(true);
-  //   setSelectedPhoto(() => imgUrl);
-  // };
 
   return (
     <div className="ModalCart">
@@ -39,26 +43,34 @@ const ModalCart = ({ productData, setModalCartVisible, setCartList }) => {
 </div>
 
         <div className="CartElement_List">
-        {productData.length ? ( 
-          productData.map((product) => (
-            <CartElement productData={product} key={product.id} setCartList={setCartList}/>
+        {cartList.length ? ( 
+          cartList.map((product) => (
+            <CartElement cartElement={product} key={product.id} setCartElementId={setCartElementId}   setSelected={setSelected} />
           ))
-        ) : (
-          <SpinnerLoading />
-        )}
+        ) : 
+         <p>No item in the cart</p>
+        }
       </div>
         <div className="totalCart">
-        <p> Provisional total ({productData.length} item): $ {(productData.map((item)=>item.price))
+        <p> Provisional total ({cartList.length} item): $ {(cartList.map((item)=>item.price))
         .reduce((partialSum, a) => partialSum + a, 0) } 
         
 
         
         
         </p>
+        
         </div>
+        <div className="clearbuttons">
         <div className="ClearCart">
-        <button onclick={onHandleClearCart}>Clear Cart</button>
+        <button onClick={onHandleClearCart}>Clear Cart</button>
         </div>
+        <div className="ClearSingleItem">
+        <button onClick={selected ? onHandleClick   : null} >Clear Single Item</button>
+        </div>
+        </div>
+        
+          
           
         </div>
       

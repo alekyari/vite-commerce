@@ -1,44 +1,42 @@
 import { shortDescription } from "../../utils/func";
 import "./index.css";
+import { useState, useEffect } from "react";
 
-const CartElement = ({ productData, setCartList}) => {
+const CartElement = ({cartElement, setCartElementId, setSelected }) => {
 
+  const [selectedItem, setSelectedItem]= useState(false);
   
+const onHandleSetId = () => {
+  setCartElementId(cartElement.id);
+  setSelected((prev)=>!prev);
+  setSelectedItem((prev)=>!prev);
 
-
-  const onHandleRemoveItem = () => {
-    // alert(productData.filter((item)=> item.id === productData.id) )
-    // const localStorageCartItems =
-    //   JSON.parse(localStorage.getItem("cartList")) || [];
-
-    // setCartList((prev) => [...prev, productData]);
-    // localStorage.setItem(
-    //   "cartList",
-    //   JSON.stringify([...localStorageCartItems, productData])
-    // );
   };
 
+
   return (
-    <div className="CartElement" >
+    <div className={`CartElement ${selectedItem ? "selected" : ""}`} >
       <div className="CartElement__image">
       <img
         className="CartElement__image--image"
-        src={productData.thumbnail}
-        alt={productData.title}
+        src={cartElement.thumbnail}
+        alt={cartElement.title}
       />
        </div>
 
       <div className="CartElement__text">
-        <h3 className="CartElement__text--title">{productData.title}</h3>
+        <h3 className="CartElement__text--title">{cartElement.title}</h3>
         <p className="CartElement__text--desc">
-          {shortDescription(productData.description)}
+          {shortDescription(cartElement.description)}
         </p>
-        <p className="CartElement__text--cat">{productData.category}</p>  
+        <p className="CartElement__text--cat">{cartElement.category}</p>  
       </div>
       <div className="CartElement__price">
-      <p className="CartElement__price--price">$ {productData.price}</p>
+      <p className="CartElement__price--price">$ {cartElement.price}</p>
       </div>
-      <button className="Remove_Item" onClick={onHandleRemoveItem} >x</button>
+      <button className="Remove_Item" 
+      onClick={onHandleSetId} 
+      >{`${selectedItem ? "unselect" : "select"}`}</button>
     </div>
   );
 };
